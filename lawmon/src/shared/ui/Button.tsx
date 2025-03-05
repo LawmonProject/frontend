@@ -1,4 +1,6 @@
 import { ReactNode } from 'react';
+import './Button.css'
+
 
 interface ButtonProps {
   children: ReactNode;
@@ -12,18 +14,21 @@ export default function Button({
   onClick,
 }: ButtonProps) {
   return (
-    <div className="relative inline-block rounded-full">
+    <div className="relative inline-block">
+
+      {/* 실제 버튼 */}
       <button
-        className={`relative rounded-full py-3 px-10 w-full hover:opacity-80 transition-all ${className}`}
+        className={`relative rounded-full py-3 px-10 w-full hover:opacity-80 transition-all ButtonCSS ${className}`}
         onClick={onClick}
         style={{
-          background:
-            'linear-gradient(90deg, rgba(136, 177, 255, 0.2) 0%, rgba(111, 102, 149, 0.2) 103.24%)',
-          border: '2px solid transparent',
-          borderImageSource: 'linear-gradient(90deg, #88B1FF 0%, #6F6695 100%)',
-          borderImageSlice: 1,
+        //   background:
+        //     'linear-gradient(90deg, rgba(136, 177, 255, 0.2) 0%, rgba(111, 102, 149, 0.2) 103.24%)',
+
+
         }}
       >
+
+
         {children}
       </button>
     </div>

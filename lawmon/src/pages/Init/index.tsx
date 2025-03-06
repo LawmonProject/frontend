@@ -1,6 +1,8 @@
 import Button from '../../shared/ui/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function Init() {
+    const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center justify-between min-h-screen text-center p-5 text-[#3A4374] space-y-[200px]">
       <div className='mt-[400px]'>
@@ -14,7 +16,7 @@ export default function Init() {
         <Button
           className="w-[380px] h-[54px] px-[125px]"
           onClick={() => {
-            console.log('시작하기버튼');
+            navigate('/login')
           }}
         >
           시작하기

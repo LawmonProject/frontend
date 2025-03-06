@@ -4,6 +4,7 @@ import  Init  from 'pages/Init/index'
 import { Main } from 'pages/main/index';
 import { Chat } from 'pages/chat/index';
 import { NotFound } from 'pages/not-found';
+import Login from 'pages/login/index'
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
         path: '*',
         element: <NotFound />,
       },
+      {
+        path: '/login',
+        element: <Login />
+      }
     ],
   },
 ]);

@@ -16,7 +16,7 @@ export default function Login() {
                 <Input placeholder='비밀번호를 입력하세요 ...' />
             </section>
             <section className='flex flex-col Losec mb-[16px]'>
-                <Button className='w-[380px] h-[54px] px-[125px]' onClick={() => {navigate('/')}}>로그인</Button>
+                <Button className='w-[380px] h-[54px] px-[125px]' onClick={() => {navigate('/profile')}}>로그인</Button>
                 <Button className='w-[380px] h-[54px] px-[125px]'>회원가입</Button>
             </section>
         </div>

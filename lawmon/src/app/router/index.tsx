@@ -5,6 +5,7 @@ import { Main } from 'pages/main/index';
 import { Chat } from 'pages/chat/index';
 import { NotFound } from 'pages/not-found';
 import Login from 'pages/login/index'
+import Profile from 'pages/profile';
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,9 @@ export const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />
+      },{
+        path: '/profile',
+        element: <Profile/>
       }
     ],
   },

@@ -16,7 +16,7 @@ export default function Init() {
         <Button
           className="w-[380px] h-[54px] px-[125px]"
           onClick={() => {
-            navigate('/login')
+            navigate('/')
           }}
         >
           시작하기
@@ -24,7 +24,7 @@ export default function Init() {
         <Button
           className="w-[30px] h-[54px] px-[110px]"
           onClick={() => {
-            console.log('전문가로 시작하기 버튼');
+            navigate('/login')
           }}
         >
           전문가로 시작하기

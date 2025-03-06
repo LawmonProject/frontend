@@ -1,9 +1,12 @@
 import { Outlet } from 'react-router-dom';
 import backgroundImage from '../../assets/로우몬기본bg.png';
+import Spline from '@splinetool/react-spline';
+
+
 
 export default function Layout() {
   return (
-    <div 
+    <div
       className="flex items-center justify-center fixed inset-0 bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ 
         backgroundImage: `url(${backgroundImage})`,
@@ -11,6 +14,7 @@ export default function Layout() {
         height: '100%',
         maxWidth: '1920px',
         maxHeight: '1080px',
+        minWidth: '700px',
       }}
     >
       <div className="absolute inset-0 overflow-auto flex items-center justify-center">

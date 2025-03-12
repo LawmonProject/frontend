@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import './index.css';
 import ChattingComponent from './ChattingComponent';
-import search from '../../assets/윾건이형.png';
+import UserImage from '../../assets/윾건이형.png';
+import send from '../../assets/로우몬제출이모티콘.svg';
 
 //Chatting 인터페이스 정의
 interface Chatting {
   id: number;
   nickname: string;
-  profile: string;
+  profileImage?: string;
   chatting: string;
   time: string;
   isMe: boolean;
@@ -19,27 +20,25 @@ function Chat() {
     {
       id: 1,
       nickname: '양준석(팀장)',
-      profile: 'People',
-      chatting: `안녕하세요 프론트엔드 팀원 여러분,
-                  .`,
+      profileImage: UserImage,
+      chatting: `안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. 안녕하세요 프론트엔드 팀원 여러분,. `,
       time: '17:06',
       isMe: false,
     },
     {
       id: 2,
       nickname: '아무개',
-      profile: 'People',
+      profileImage: UserImage,
       chatting: `신규 개발 중인 개인정보 수정 탭의 사이드 탭의 UI 개발 을 맡고
-                  있는 해당 팀원 분들은 저에게 진척 사항 공유 부탁드립니다~ 발표
-                  자료에 포함시킬 예정입니다.`,
+                  있는 해당 팀원 분들은 저에게 진척 사항 공유 부탁드립니다~.`,
       time: '17:07',
       isMe: true,
     },
     {
       id: 3,
       nickname: '김민수',
-      profile: 'People',
-      chatting: `저랑 이지현 팀원이 개발 중에 있습니다! 진척 상황 노션에
+      profileImage: UserImage,
+      chatting: `저랑 이현빈 팀원이 개발 중에 있습니다! 진척 상황 노션에
                   정리하여 곧 공유드리겠습니다!`,
       time: '17:08',
       isMe: false,
@@ -47,10 +46,9 @@ function Chat() {
     {
       id: 4,
       nickname: '아무게',
-      profile: 'People',
+      profileImage: UserImage,
       chatting: `신규 개발 중인 개인정보 수정 탭의 사이드 탭의 UI 개발 을 맡고
-                  있는 해당 팀원 분들은 저에게 진척 사항 공유 부탁드립니다~ 발표
-                  자료에 포함시킬 예정입니다.`,
+                  있는 해당 팀원 분들은 저에게 진척 사항 공유 부탁드립니다~ `,
       time: '17:09',
       isMe: true,
     },
@@ -63,23 +61,27 @@ function Chat() {
   }, [chattings]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey && e.nativeEvent.isComposing === false) {
+    if (
+      e.key === 'Enter' &&
+      !e.shiftKey &&
+      e.nativeEvent.isComposing === false
+    ) {
       e.preventDefault();
       handleSendMessage();
     }
   };
-//   const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-//     if (e.key === 'Enter' && !e.shiftKey) {
-//       e.preventDefault();
-//       handleSendMessage();
-//     }
-//   };
+  //   const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  //     if (e.key === 'Enter' && !e.shiftKey) {
+  //       e.preventDefault();
+  //       handleSendMessage();
+  //     }
+  //   };
 
   /* sendMessage 함수*/
   const handleSendMessage = () => {
     if (input.trim()) {
-        const currentInput = input;
-        setInput('');
+      const currentInput = input;
+      setInput('');
       setChattings((prevMessages) => {
         //이전 메세지 배열이 비어 있는지 확인하고, 비어 있지 않으면 마지막 메세지의 id를 가져옴
         const newId =
@@ -91,55 +93,59 @@ function Chat() {
           {
             id: newId,
             nickname: '아무게',
-            profile: 'People',
+            profileImage: 'me',
             chatting: currentInput,
             time: new Date().toLocaleTimeString(),
             isMe: true,
           },
         ];
       });
-    //   console.log(chattings);
-
+      //   console.log(chattings);
     }
   };
 
   return (
-    <div className="flex">
+    <div className="flex Chat-container">
       <div
         className="bg-chatting min-h-screen flex flex-col p-6"
         style={{ width: 'calc(100vw - 24rem)' }}
       >
         <div className="flex justify-between items-center">
-          <p className="text-xl font-bold text-white"># FRONTEND</p>
-          <img className="w-5 h-5" src={search} alt="" />
+          <p className="text-xl font-bold title "> LAWMON</p>
         </div>
         <div
           id="chatContanier"
           className="mt-6 px-2 overflow-y-auto"
           style={{ height: 'calc(100vh - 172px)' }}
         >
-          {chattings.map(({ id, nickname, chatting, time, isMe }) => (
+          {chattings.map(({ id, nickname, chatting, time, isMe, profileImage }) => (
             <ChattingComponent
               key={id}
               nickname={nickname}
               chatting={chatting}
               time={time}
               isMe={isMe}
+              profileImage={profileImage}
             />
           ))}
           <div className="h-5" ref={chatEndRef} />
         </div>
-        <div className="w-full h-12 bg-white flex items-center justify-between rounded-lg px-3 mb-[10px]">
+        <div
+          id="chatting-input-part"
+          className="w-full h-12 bg-white flex items-center justify-between rounded-lg px-3 mb-[10px] "
+        >
           <textarea
-            className="w-full h-12 mx-3 focus:outline-none resize-none flex-1"
+            className="w-full h-12 mx-3 focus:outline-none resize-none flex-1 chatting-input"
             style={{ resize: 'none' }}
-            placeholder="메세지를 입력해주세요."
+            placeholder="Ask Anything..."
             onKeyDown={handleKeyDown}
             // onKeyUp={handleKeyUp}
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
-          <button onClick={handleSendMessage}>입력</button>
+          <button className="chatting-button" onClick={handleSendMessage}>
+            <img src={send} alt="SendBtn" />
+          </button>
         </div>
       </div>
     </div>

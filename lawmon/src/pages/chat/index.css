@@ -2,8 +2,8 @@
     scrollbar-width: none;
 }
 #chatting-input-part{
-    padding-bottom: 40px;
-    padding-top: 10px;
+    margin-bottom: 60px;
+    margin-top: 10px;
 }
 .title {
     font-size: x-large;
@@ -11,14 +11,16 @@
 .chatting-input {
     display: flex;
     flex-grow: 1;
+    align-items: center;
+    line-height: 1.5;
     background-color: #E0D5F0;
     border-radius: 50px;
-    padding: 30px 20px;
+    padding: 30px 40px;
 }
 .chatting-button {
     position: absolute;
     right: 20px;
-    bottom: 55px;
+    bottom: 70px;
     padding: 8px 16px;
     background: transparent;
     color: white;

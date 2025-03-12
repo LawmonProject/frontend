@@ -106,57 +106,54 @@ function Chat() {
 
   return (
     <>
-    <div className="flex Chat-container">
-
-      <div
-        className="bg-chatting min-h-screen flex flex-col p-6"
-        style={{ width: 'calc(100vw - 24rem)' }}
-      >
-        <div className="flex justify-between items-center title mb-[10px]">
-          <p className="text-xl font-bold pt-[10px]">LAWMON</p>
-        </div>
-        <div
-          id="chatContanier"
-          className="mt-[25px] px-2 overflow-y-auto"
-          style={{ height: 'calc(100vh - 182px)' }}
-        >
-          {chattings.map(
-            ({ id, nickname, chatting, time, isMe, profileImage }) => (
-              <ChattingComponent
-                key={id}
-                nickname={nickname}
-                chatting={chatting}
-                time={time}
-                isMe={isMe}
-                profileImage={profileImage}
-              />
-            ),
-          )}
-          <div className="h-5" ref={chatEndRef} />
-        </div>
-        <div
-          id="chatting-input-part"
-          className="w-full h-12 bg-white flex items-center justify-between rounded-lg px-3 mb-[10px] "
-        >
-          <textarea
-            className="w-full h-12 mx-3 focus:outline-none resize-none flex-1 chatting-input"
-            style={{ resize: 'none' }}
-            placeholder="Ask Anything..."
-            onKeyDown={handleKeyDown}
-            // onKeyUp={handleKeyUp}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <button className="chatting-button" onClick={handleSendMessage}>
-            <img src={send} alt="SendBtn" />
-          </button>
-        </div>
+      <div className="flex justify-between items-center title mb-[10px]">
+        <p className="text-xl font-bold pt-[10px]">LAWMON</p>
       </div>
-      <div>
-
+      <div className="flex Chat-container">
+        <div
+          className="bg-chatting min-h-screen flex flex-col p-6"
+          style={{ width: 'calc(100vw - 24rem)' }}
+        >
+          <div
+            id="chatContanier"
+            className="mt-[25px] px-2 overflow-y-auto"
+            style={{ height: 'calc(100vh - 182px)' }}
+          >
+            {chattings.map(
+              ({ id, nickname, chatting, time, isMe, profileImage }) => (
+                <ChattingComponent
+                  key={id}
+                  nickname={nickname}
+                  chatting={chatting}
+                  time={time}
+                  isMe={isMe}
+                  profileImage={profileImage}
+                />
+              ),
+            )}
+            <div className="h-5" ref={chatEndRef} />
+          </div>
+          <div
+            id="chatting-input-part"
+            className="w-full h-12 bg-white flex items-center justify-between rounded-lg px-3 mb-[10px] "
+          >
+            <textarea
+              className="w-full h-12 mx-3 focus:outline-none resize-none flex-1 chatting-input"
+              style={{ resize: 'none' }}
+              placeholder="Ask Anything..."
+              onKeyDown={handleKeyDown}
+              // onKeyUp={handleKeyUp}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <button className="chatting-button" onClick={handleSendMessage}>
+              <img src={send} alt="SendBtn" />
+            </button>
+          </div>
+        </div>
+        <div></div>
       </div>
-    </div>
-        </>
+    </>
   );
 }
 

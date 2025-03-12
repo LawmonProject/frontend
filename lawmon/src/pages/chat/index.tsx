@@ -63,7 +63,7 @@ function Chat() {
   }, [chattings]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && e.nativeEvent.isComposing === false) {
       e.preventDefault();
       handleSendMessage();
     }
@@ -78,6 +78,8 @@ function Chat() {
   /* sendMessage 함수*/
   const handleSendMessage = () => {
     if (input.trim()) {
+        const currentInput = input;
+        setInput('');
       setChattings((prevMessages) => {
         //이전 메세지 배열이 비어 있는지 확인하고, 비어 있지 않으면 마지막 메세지의 id를 가져옴
         const newId =
@@ -90,14 +92,14 @@ function Chat() {
             id: newId,
             nickname: '아무게',
             profile: 'People',
-            chatting: input,
+            chatting: currentInput,
             time: new Date().toLocaleTimeString(),
             isMe: true,
           },
         ];
       });
-      console.log(chattings);
-      setInput('');
+    //   console.log(chattings);
+
     }
   };
 
@@ -127,7 +129,7 @@ function Chat() {
           ))}
           <div className="h-5" ref={chatEndRef} />
         </div>
-        <div className="w-full h-12 bg-white flex items-center justify-between rounded-lg px-3">
+        <div className="w-full h-12 bg-white flex items-center justify-between rounded-lg px-3 mb-[10px]">
           <textarea
             className="w-full h-12 mx-3 focus:outline-none resize-none flex-1"
             style={{ resize: 'none' }}

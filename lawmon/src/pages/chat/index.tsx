@@ -105,29 +105,33 @@ function Chat() {
   };
 
   return (
+    <>
     <div className="flex Chat-container">
+
       <div
         className="bg-chatting min-h-screen flex flex-col p-6"
         style={{ width: 'calc(100vw - 24rem)' }}
       >
-        <div className="flex justify-between items-center">
-          <p className="text-xl font-bold title "> LAWMON</p>
+        <div className="flex justify-between items-center title mb-[10px]">
+          <p className="text-xl font-bold ">LAWMON</p>
         </div>
         <div
           id="chatContanier"
-          className="mt-6 px-2 overflow-y-auto"
-          style={{ height: 'calc(100vh - 172px)' }}
+          className="mt-[25px] px-2 overflow-y-auto"
+          style={{ height: 'calc(100vh - 182px)' }}
         >
-          {chattings.map(({ id, nickname, chatting, time, isMe, profileImage }) => (
-            <ChattingComponent
-              key={id}
-              nickname={nickname}
-              chatting={chatting}
-              time={time}
-              isMe={isMe}
-              profileImage={profileImage}
-            />
-          ))}
+          {chattings.map(
+            ({ id, nickname, chatting, time, isMe, profileImage }) => (
+              <ChattingComponent
+                key={id}
+                nickname={nickname}
+                chatting={chatting}
+                time={time}
+                isMe={isMe}
+                profileImage={profileImage}
+              />
+            ),
+          )}
           <div className="h-5" ref={chatEndRef} />
         </div>
         <div
@@ -148,7 +152,11 @@ function Chat() {
           </button>
         </div>
       </div>
+      <div>
+
+      </div>
     </div>
+        </>
   );
 }
 

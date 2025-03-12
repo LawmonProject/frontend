@@ -7,6 +7,11 @@
 }
 .title {
     font-size: x-large;
+    position: absolute;
+    
+
+    z-index: 10;
+
 }
 .chatting-input {
     display: flex;

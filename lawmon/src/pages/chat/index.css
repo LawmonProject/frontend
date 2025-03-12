@@ -1,5 +1,6 @@
 #chatContanier {
     scrollbar-width: none;
+    margin-top: 40px;
 }
 #chatting-input-part{
     margin-bottom: 60px;

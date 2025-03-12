@@ -113,7 +113,7 @@ function Chat() {
         style={{ width: 'calc(100vw - 24rem)' }}
       >
         <div className="flex justify-between items-center title mb-[10px]">
-          <p className="text-xl font-bold ">LAWMON</p>
+          <p className="text-xl font-bold pt-[10px]">LAWMON</p>
         </div>
         <div
           id="chatContanier"

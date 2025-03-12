@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { Main } from '../pages/main/index'
-import { Chat } from '../pages/chat/index'
+import { Chat } from '../pages/chat/ChattingComponent'
 import { NotFound } from 'pages/not-found';
 
 export function App() {

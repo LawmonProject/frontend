@@ -21,20 +21,7 @@ function Chat() {
       nickname: '양준석(팀장)',
       profile: 'People',
       chatting: `안녕하세요 프론트엔드 팀원 여러분,
-                  다음 주 수요일에 예정된 정기 회의 관련 공지드립니다.
-
-                  이번 회의에서는 각 부서별로 발표가 있을 예정입니다. 주요
-                  내용은 아래와 같습니다:
-
-                  1. 운영팀: 최근 배달 효율성 개선 프로젝트 진행 상황 보고
-                  2. 마케팅팀: 신규 프로모션 캠페인 계획 및 기대 효과 발표
-                  3. 기술팀: 앱 업데이트 및 새로운 기능 소개
-                  4. 고객지원팀: 고객 만족도 조사 결과 및 개선 방안 발표
-
-                  우리 프론트엔드 팀에서는 새로운 사용자 인터페이스 개선 사항과
-                  현재 진행 중인 프로젝트의 진척도를 공유할 예정입니다. 각
-                  팀원은 본인의 작업 부분에 대해 간단한 업데이트를 준비해
-                  주세요.`,
+                  .`,
       time: '17:06',
       isMe: false,
     },
@@ -68,10 +55,51 @@ function Chat() {
       isMe: true,
     },
   ]);
+  /* textarea 값 input으로 정의 */
+  const [input, setInput] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [chattings])
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chattings]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+//   const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+//     if (e.key === 'Enter' && !e.shiftKey) {
+//       e.preventDefault();
+//       handleSendMessage();
+//     }
+//   };
+
+  /* sendMessage 함수*/
+  const handleSendMessage = () => {
+    if (input.trim()) {
+      setChattings((prevMessages) => {
+        //이전 메세지 배열이 비어 있는지 확인하고, 비어 있지 않으면 마지막 메세지의 id를 가져옴
+        const newId =
+          prevMessages.length > 0
+            ? prevMessages[prevMessages.length - 1].id + 1
+            : 1;
+        return [
+          ...prevMessages,
+          {
+            id: newId,
+            nickname: '아무게',
+            profile: 'People',
+            chatting: input,
+            time: new Date().toLocaleTimeString(),
+            isMe: true,
+          },
+        ];
+      });
+      console.log(chattings);
+      setInput('');
+    }
+  };
 
   return (
     <div className="flex">
@@ -97,15 +125,19 @@ function Chat() {
               isMe={isMe}
             />
           ))}
-          <div className='h-5' ref={chatEndRef} />
+          <div className="h-5" ref={chatEndRef} />
         </div>
-        <div className="w-full h-12 bg-white flex items-center justify-between mt-6 rounded-lg px-3">
+        <div className="w-full h-12 bg-white flex items-center justify-between rounded-lg px-3">
           <textarea
             className="w-full h-12 mx-3 focus:outline-none resize-none flex-1"
             style={{ resize: 'none' }}
             placeholder="메세지를 입력해주세요."
+            onKeyDown={handleKeyDown}
+            // onKeyUp={handleKeyUp}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
           />
-          <button>입력</button>
+          <button onClick={handleSendMessage}>입력</button>
         </div>
       </div>
     </div>

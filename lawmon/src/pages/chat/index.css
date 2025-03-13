@@ -15,7 +15,7 @@
     right: 0;
     padding: 0 20px;
     width: calc(100% - 40px);
-    max-width: 1200px; /* 필요에 따라 조정 */
+    max-width: 1440px; /* 필요에 따라 조정 */
     margin: 0 auto;
 }
 .title {

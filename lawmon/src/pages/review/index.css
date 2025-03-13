@@ -22,8 +22,8 @@
   font-size: 24px;
   font-weight: bold;
 }
-.sendmassage {
-  text-align: center;
+.sendmassage{
+    text-align: center;
 }
 
 .star-container {
@@ -38,6 +38,11 @@
 }
 
 .review-textarea {
+  width: 100%;
+  padding-top: 40px;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-bottom: 100px;
   box-sizing: border-box;
   border-radius: 50px;
   background-color: #e0d5f0;
@@ -69,5 +74,5 @@
 }
 
 .help {
-  margin-top: 20px;
+    margin-top: 20px;
 }

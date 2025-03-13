@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import backgroundImage from '../../assets/로우몬기본bg.png';
-import Spline from '@splinetool/react-spline';
 
 
 

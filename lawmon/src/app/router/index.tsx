@@ -1,11 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../layout';
-import  Init  from 'pages/Init/index'
+import Init from 'pages/Init/index';
 import { Main } from 'pages/main/index';
-import { Chat } from 'pages/chat/index';
+import Chat from 'pages/chat/index';
 import { NotFound } from 'pages/not-found';
-import Login from 'pages/login/index'
+import Login from 'pages/login/index';
 import Profile from 'pages/profile';
+import Review from 'pages/review';
 
 export const router = createBrowserRouter([
   {
@@ -29,10 +30,15 @@ export const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <Login />
-      },{
+        element: <Login />,
+      },
+      {
         path: '/profile',
-        element: <Profile/>
+        element: <Profile />,
+      },
+      {
+        path: '/review',
+        element: <Review />,
       }
     ],
   },

@@ -4,7 +4,7 @@ import emptyStar from '../../assets/빈별.svg';
 import filledStar from '../../assets/찬별.svg';
 import send from '../../assets/로우몬제출이모티콘.svg';
 
-let sf= 0;
+let sf= 2;
 export default function Review() {
   const [rating, setRating] = useState(0);
 

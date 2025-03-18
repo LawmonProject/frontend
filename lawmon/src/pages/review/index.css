@@ -49,7 +49,9 @@
   resize: none;
   overflow: hidden;
 }
-
+.df {
+    
+}
 .submit-button {
   position: absolute;
   right: 15px; /* 오른쪽 여백 조정 */

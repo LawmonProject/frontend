@@ -1,0 +1,38 @@
+.result_container {
+    background: linear-gradient(to right, #88B1FF 0%, #6F6695 100%);
+    border-radius: 10px; /* 원하는 radius 값 */
+    padding: 3px; /* border 두께 */
+}
+
+.result_container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(228, 212, 212, 0.2);
+    border-radius: 7px; /* 외부 radius보다 작게 (border 두께만큼 뺀 값) */
+    margin: 3px; /* border 두께와 동일하게 */
+    z-index: -1;
+}
+
+.result_inner {
+    width: 1600px;
+    height: 730px;
+    background-color: #e3e6ff;
+    border-radius: 7px;
+    margin: 3px 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    
+}
+.divider {
+    width: 2px;
+    background-color: #6F6695;
+    margin: 0 10px;
+    height: 80%;
+    align-self: center;
+}

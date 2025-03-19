@@ -7,6 +7,7 @@ import { NotFound } from 'pages/not-found';
 import Login from 'pages/login/index';
 import Profile from 'pages/profile';
 import Review from 'pages/review';
+import Result from 'pages/result';
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,9 @@ export const router = createBrowserRouter([
       {
         path: '/review',
         element: <Review />,
+      },{
+        path: '/result',
+        element: <Result />,
       }
     ],
   },

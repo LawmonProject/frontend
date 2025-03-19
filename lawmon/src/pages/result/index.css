@@ -11,7 +11,7 @@
 
 .result_container {
     background: linear-gradient(to right, #88B1FF 0%, #6F6695 100%);
-    border-radius: 10px; /* 원하는 radius 값 */
+    border-radius: 24px; /* 원하는 radius 값 */
     padding: 3px; /* border 두께 */
 }
 
@@ -23,7 +23,7 @@
     right: 0;
     bottom: 0;
     /* background-color: rgba(228, 212, 212, 0.2); */
-    border-radius: 10px; /* 외부 radius보다 작게 (border 두께만큼 뺀 값) */
+    border-radius: 0px; /* 외부 radius보다 작게 (border 두께만큼 뺀 값) */
     margin: 3px; /* border 두께와 동일하게 */
     z-index: -1;
 }
@@ -31,8 +31,8 @@
 .result_inner {
     width: 1600px;
     height: 730px;
-    background-color: #e7eaff;
-    border-radius: 10px;
+    background-color: #e5e8ff;
+    border-radius: 20px;
     margin: 2px 2px;
     display: flex;
     flex-direction: row;
@@ -86,5 +86,5 @@
 }
 
 .dirbtn {
-    font-size: 24px;
+    font-size: 20px;
 }

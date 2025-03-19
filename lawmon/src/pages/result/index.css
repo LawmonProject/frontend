@@ -29,6 +29,14 @@
     position: relative;
     
 }
+.result_inner > .consult {
+    flex: 1;
+}
+
+.result_inner > .analist {
+    flex: 1;
+}
+
 .divider {
     width: 2px;
     background-color: #6F6695;

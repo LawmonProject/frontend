@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './index.css';
 import ChattingComponent from './ChattingComponent';
-import UserImage from '../../assets/윾건이형.png';
+import UserImage from '/src/assets/윾건이형.png';
 import send from '../../assets/로우몬제출이모티콘.svg';
 
 //Chatting 인터페이스 정의

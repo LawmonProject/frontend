@@ -7,6 +7,9 @@ import { NotFound } from 'pages/not-found';
 import Login from 'pages/login/index';
 import Profile from 'pages/profile';
 import Review from 'pages/review';
+import Expert from 'pages/expert';
+import Contract from 'pages/contract';
+import Past from 'pages/past';
 
 export const router = createBrowserRouter([
   {
@@ -25,10 +28,6 @@ export const router = createBrowserRouter([
         element: <Chat />,
       },
       {
-        path: '*',
-        element: <NotFound />,
-      },
-      {
         path: '/login',
         element: <Login />,
       },
@@ -39,7 +38,23 @@ export const router = createBrowserRouter([
       {
         path: '/review',
         element: <Review />,
-      }
+      },
+      {
+        path: '/expert',
+        element: <Expert />,
+      },
+      {
+        path: '/contract',
+        element: <Contract />,
+      },
+      {
+        path: '/past',
+        element: <Past />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
+      },
     ],
   },
 ]);

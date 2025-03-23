@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center justify-around h-screen ">
-      <h1 className="title text-[36px] pt-[30px]">LAWMON</h1>
-      <section className="flex flex-col Lg my-[-100px]">
+    <div className="flex flex-col items-center justify-center h-screen gap-[20px]4">
+      <h1 className="title text-[36px]  w-full">LAWMON</h1>
+      <section className="flex flex-col Lg mb-[50px]">
         <span className="SpanColor">ID</span>
         <Input placeholder="ID 를 입력하세요 ...." />
         <span className="SpanColor">Password</span>
@@ -25,13 +25,13 @@ export default function Login() {
           로그인
         </Button>
         <Button className="w-[380px] h-[54px] px-[125px]">회원가입</Button>
-        <Button
+        {/* <Button
           onClick={() => {
             navigate('/chat');
           }}
         >
           임시 채팅 가기 버튼
-        </Button>
+        </Button> */}
       </section>
     </div>
   );

@@ -45,14 +45,20 @@
   border-radius: 20px;
   padding-top: 30px;
   padding-left: 40px;
-  padding-right: 40px;
+  padding-right: 30px;
   padding-bottom: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
-  color: rgb(77, 84, 164);
+  color: black;
   flex-direction: column;
-
   text-align: left;
+  width: 400px;
+}
+
+.expert-card:hover {
+  background-color: #b4c3da;
+  color: rgb(0, 0, 0);
+  filter: brightness(0.85);
 }
 
 .chat-icon {

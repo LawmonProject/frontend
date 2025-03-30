@@ -18,6 +18,47 @@ export default function Expert() {
       company2: '메가스터디',
       image: expertImage,
     },
+    {
+      name: '김민지',
+      rating: 4,
+      reviews: 12,
+      description: (
+        <b>'15년 경력의 회계 전문가, 신뢰할 수 있는 재정 관리 파트너입니다.'</b>
+      ),
+      education: '(미) 하버드대학교 경영학 학사',
+      company1: '삼성전자',
+      company2: '현대자동차',
+      image: expertImage,
+    },
+    {
+      name: '이승현',
+      rating: 5,
+      reviews: 22,
+      description: (
+        <b>
+          '10년 경력의 금융 전문가, 안정적이고 효율적인 투자 솔루션을
+          제공합니다.'
+        </b>
+      ),
+      education: '(미) MIT 경영학 석사',
+      company1: 'KB증권',
+      company2: '한국투자증권',
+      image: expertImage,
+    },
+
+    {
+      name: '현우진',
+      rating: 5,
+      reviews: 18,
+      description: (
+        <b>'20년 경력의 계약 전문가, 당신의 신뢰를 지키는 파트너입니다.'</b>
+      ),
+      education: '(미) 스탠포드대학교 수학과 학사',
+      company1: '대찬학원',
+      company2: '메가스터디',
+      image: expertImage,
+    },
+
     // 추가 전문가 데이터를 원하면 여기에 객체 추가 가능
   ];
 
@@ -29,7 +70,7 @@ export default function Expert() {
       <h2 className="text-lg font-semibold text-gray-800 mb-8">
         실제 전문가와 편하게 상담하세요!
       </h2>
-      <div className="expert-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="expert-grid grid grid-cols-2 gap-10">
         {experts.map((expert, index) => (
           <div
             key={index}
@@ -57,15 +98,16 @@ export default function Expert() {
                   후기 {expert.reviews}개
                 </p>
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-end ">
                 <img
                   src={expert.image}
                   alt={expert.name}
-                  className="w-10 h-10 rounded-full"
+                  style={{ width: '70px', height: '70px', marginLeft: '150px' }}
+                  className="w-8 h-8 rounded-full "
                 />
               </div>
             </div>
-            <div className="flex justify-between items-start w-full">
+            <div className="flex justify-between items-center w-full">
               {/* 왼쪽: 경력 정보 */}
               <div className="flex-1">
                 <p className="text-gray-700">"{expert.description}"</p>

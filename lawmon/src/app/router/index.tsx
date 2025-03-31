@@ -3,6 +3,7 @@ import Layout from '../layout';
 import Init from 'pages/Init/index';
 import { Main } from 'pages/main/index';
 import Chat from 'pages/chat/index';
+import ChatRoom from 'pages/chat/ChatRoom';
 import { NotFound } from 'pages/not-found';
 import Login from 'pages/login/index';
 import Profile from 'pages/profile';
@@ -11,6 +12,7 @@ import Result from 'pages/result';
 import Expert from 'pages/expert';
 import Contract from 'pages/contract';
 import Past from 'pages/past';
+
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: '/chat',
         element: <Chat />,
+      },
+      {
+        path: '/chat/:roomId',
+        element: <ChatRoom />,
       },
       {
         path: '/login',

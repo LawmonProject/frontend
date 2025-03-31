@@ -1,52 +1,7 @@
-#chatContanier {
-    scrollbar-width: none;
-    margin-top: 40px;
-    position: relative;
-    height: calc(100vh - 100px);
-    display: flex;
-    flex-direction: column;
-}
-#chatting-input-part{
-    margin-bottom: 100px;
-    margin-top: 10px;
-    position: fixed;
-    bottom: 100px;
-    left: 0;
-    right: 0;
-    padding: 0 20px;
-    width: calc(100% - 40px);
-    max-width: 1440px; /* 필요에 따라 조정 */
-    margin: 0 auto;
-}
-.title {
-    font-size: x-large;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-
-    z-index: 10;
-
-}
-.chatting-input {
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    line-height: 1.5;
-    background-color: #E0D5F0;
-    border-radius: 50px;
-    padding: 40px 60px;
-    padding-right: 100px;
-    overflow: hidden;
-}
-.chatting-button {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    padding: 8px 16px;
-    background: transparent;
-    color: white;
-    border: none;
-    border-radius: 9999px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+.expert-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+  }

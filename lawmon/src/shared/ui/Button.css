@@ -1,16 +1,20 @@
 .ButtonCSS {
-    border:3px solid transparent ;
-    border-radius:10px;
-    background-image: linear-gradient(90deg, rgba(220, 231, 252, 0.805) 0%, rgb(217, 210, 250) 100%),
-                     linear-gradient(90deg, #88B1FF 0%, #6F6695 100%);
-    background-origin:border-box; 
-    background-clip:padding-box, border-box;
-    transition: filter 0.2s;
-    color: rgba(118, 123, 179, 1);
-    
+  border: 3px solid transparent;
+  border-radius: 10px;
+  background-image: linear-gradient(
+      90deg,
+      rgba(220, 231, 252, 0.805) 0%,
+      rgb(217, 210, 250) 100%
+    ),
+    linear-gradient(90deg, #88b1ff 0%, #6f6695 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  transition: filter 0.2s;
+  color: rgba(118, 123, 179, 1);
+  height: auto !important;
+  min-height: 50px;
 }
 
 .ButtonCSS:active {
-    filter: brightness(0.8);
+  filter: brightness(0.8);
 }
-

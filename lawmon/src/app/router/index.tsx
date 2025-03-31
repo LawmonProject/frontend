@@ -8,6 +8,9 @@ import Login from 'pages/login/index';
 import Profile from 'pages/profile';
 import Review from 'pages/review';
 import Result from 'pages/result';
+import Expert from 'pages/expert';
+import Contract from 'pages/contract';
+import Past from 'pages/past';
 
 export const router = createBrowserRouter([
   {
@@ -26,10 +29,6 @@ export const router = createBrowserRouter([
         element: <Chat />,
       },
       {
-        path: '*',
-        element: <NotFound />,
-      },
-      {
         path: '/login',
         element: <Login />,
       },
@@ -38,12 +37,29 @@ export const router = createBrowserRouter([
         element: <Profile />,
       },
       {
-        path: '/review',
-        element: <Review />,
-      },{
         path: '/result',
         element: <Result />,
-      }
+      },
+      {
+        path: '/expert',
+        element: <Expert />,
+      },
+      {
+        path: '/contract',
+        element: <Contract />,
+      },
+      {
+        path: '/past',
+        element: <Past />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
+      },
+      {
+        path: '/review',
+        element: <Review />,
+      },
     ],
   },
 ]);

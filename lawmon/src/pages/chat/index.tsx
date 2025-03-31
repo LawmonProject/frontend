@@ -52,6 +52,7 @@ export default function Chat() {
   return (
     <div>
       <h1 className="Law-title text-3xl font-bold text-blue-900 mb-4">LAWMON</h1>
+      <p className="mx-auto w-fit text-3xl text-gray-500 chatting-title">법률 상담 채팅 목록</p>
       <div className="overflow-y-auto flex-1">
         {chatRooms.map((room) => (
           <RoomItem

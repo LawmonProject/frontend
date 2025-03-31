@@ -108,7 +108,7 @@ function Chat() {
   return (
     <>
       <div className="flex justify-between items-center title mb-[10px]">
-        <p className="text-xl font-bold pt-[10px]">LAWMON</p>
+      <h1 className="Law-title text-3xl font-bold text-blue-900 mb-4">LAWMON</h1>
       </div>
       <div className="flex Chat-container">
         <div

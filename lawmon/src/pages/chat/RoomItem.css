@@ -6,10 +6,32 @@
     border-bottom: 1px solid #ccc;
     width: 1000px;
 }
+.RoomContainer:hover {
+    background-color: #d8e2ff;
+}
 .chattingID {
     font-size: 20px;
 }
 
 .lastMessage {
     font-size: 15px;
+}
+
+.MessImg {
+    width: 70px;
+    height: 70px;
+    transition: background-color 0.3s ease;
+    border-radius: 50%;
+    cursor: pointer;
+
+}
+
+.MessImg:hover {
+    background-color: #c7cdffa0;
+}
+
+.MessImg:active {
+    transform: scale(0.90);
+    background-color: #c7cdffa0;
+    
 }

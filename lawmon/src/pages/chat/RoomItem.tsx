@@ -21,12 +21,12 @@ function PersonImg() {
 /** 메세지 이미티콘 컴포넌트 */
 function MessageImg() {
   return (
-    <div className="relative w-10 h-10 flex-shrink-0">
+    <div className="relative flex-shrink-0 MessImg">
       <img src={EllipseSM} alt="EllipseSM" className="w-full h-full" />
       <img
         src={MesIcon}
         alt="MesIcon"
-        className="w-4 h-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-4/7"
+        className="w-4 h-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-4/8"
       />
     </div>
   );

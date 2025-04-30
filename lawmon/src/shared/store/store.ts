@@ -5,10 +5,12 @@ interface ContractState {
   setSelectedFile: (file: File | null) => void;
   contractID: number | null;
   setContractID: (id: number | null) => void;
-  title : string | null;
+  title: string | null;
   setTitle: (title: string | null) => void;
   category: string | null;
   setCategory: (category: string | null) => void;
+  ContractURL: string | null;
+  setContractURL: (url: string | null) => void;
 }
 
 export const useContractStore = create<ContractState>((set) => ({
@@ -20,4 +22,6 @@ export const useContractStore = create<ContractState>((set) => ({
   setCategory: (category) => set({ category }),
   selectedFile: null,
   setSelectedFile: (file) => set({ selectedFile: file }),
+  ContractURL: null,
+  setContractURL: (url) => set({ ContractURL: url }),
 }));

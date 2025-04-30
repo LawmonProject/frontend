@@ -2,12 +2,41 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 import contractImage from '/src/assets/계약서이미지.svg';
+import { useMutation } from '@tanstack/react-query';
+import { useContractStore } from '../../shared/store/store'
 
 export default function Contract() {
   const [selectedFile, setSelectedFile] = useState< File | null>(null);
   const [category, setCategory] = useState<string>('');
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
+
+  const setContractURL = useContractStore((state) => state.setContractURL);
+
+  const uploadContract = async ({ file, category }: { file: File, category: string }) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/contracts/upload?title=${encodeURIComponent(file.name)}&category=${encodeURIComponent(category)}`,
+      {
+        method: 'POST',
+        body: formData,
+      }
+    );
+    if (!res.ok) throw new Error('업로드 실패');
+    return res.json();
+  };
+
+  const mutation = useMutation({
+    mutationFn: uploadContract,
+    onSuccess: (data) => {
+      setContractURL(data.url);
+      alert('업로드 성공! S3 URL: ' + data.url);
+    },
+    onError: () => {
+      alert('파일 업로드에 실패했습니다.');
+    }
+  });
 
   const handleCategoryClick = (cat)  => {
     setCategory(cat);
@@ -19,33 +48,12 @@ export default function Contract() {
     setSelectedFile(file);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = () => {
     if (!selectedFile || !category) {
       alert('파일과 계약서 종류를 선택해 주세요.');
       return;
     }
-    setUploading(true);
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/contracts/upload?title=${encodeURIComponent(selectedFile.name)}&category=${encodeURIComponent(category)}`,
-        {
-          method: 'POST',
-          body: formData, // formData에는 file만 append해도 충분
-        }
-      );
-      if (!res.ok) throw new Error('업로드 실패');
-      const data = await res.json();
-      alert('업로드 성공! S3 URL: ' + data.url);
-      // 필요시 navigate('/contract-analysis');
-    } catch (e) {
-      alert('파일 업로드에 실패했습니다.');
-      console.error(e)
-    } finally {
-      setUploading(false);
-    }
+    mutation.mutate({ file: selectedFile, category });
   };
 
   return (

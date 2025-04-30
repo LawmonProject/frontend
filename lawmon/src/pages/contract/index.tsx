@@ -46,17 +46,14 @@ export default function Contract() {
   };
 
 const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    setSelectedFile(file);
+  const file = event.target.files && event.target.files[0];
+  setSelectedFile(file);
+  if (file && category) {
+    mutation.mutate({ file, category });
+  } else if (!category) {
+    alert('먼저 계약서 종류를 선택해 주세요.');
+  }
 };
-
-  const handleUpload = () => {
-    if (!selectedFile || !category) {
-      alert('파일과 계약서 종류를 선택해 주세요.');
-      return;
-    }
-    mutation.mutate({ file: selectedFile, category });
-  };
 
   return (
     <>
@@ -108,14 +105,6 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         {selectedFile && (
           <p className="text-lg text-gray-700">{selectedFile.name}</p>
         )}
-
-        <button
-          className="mt-4 px-6 py-2 bg-green-500 text-white rounded"
-          onClick={handleUpload}
-          disabled={uploading}
-        >
-          {uploading ? '업로드 중...' : '업로드'}
-        </button>
       </div>
     </>
   );

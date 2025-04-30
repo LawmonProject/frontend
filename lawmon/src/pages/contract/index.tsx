@@ -37,16 +37,18 @@ export default function Contract() {
       alert('파일 업로드에 실패했습니다.');
     }
   });
+  
+  type Category = 'RealEstate' | 'Labor' | 'Insurance';
 
-  const handleCategoryClick = (cat)  => {
+  const handleCategoryClick = (cat : Category)  => {
     setCategory(cat);
     document.getElementById('fileInput')?.click();
   };
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
+const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
     setSelectedFile(file);
-  };
+};
 
   const handleUpload = () => {
     if (!selectedFile || !category) {

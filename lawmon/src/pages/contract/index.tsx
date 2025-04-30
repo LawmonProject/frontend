@@ -3,17 +3,33 @@ import { useNavigate } from 'react-router-dom';
 import './index.css';
 import contractImage from '/src/assets/계약서이미지.svg';
 import { useMutation } from '@tanstack/react-query';
-import { useContractStore } from '../../shared/store/store'
+import { useContractStore } from '../../shared/store/store';
 
 export default function Contract() {
-  const [selectedFile, setSelectedFile] = useState< File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [category, setCategory] = useState<string>('');
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
+  /* zustand에서 지역변수 설정 */
+  const setContractID = useContractStore((state) => state.setContractID);
+  const setTitle = useContractStore((state) => state.setTitle);
+  const setCategoryStore = useContractStore((state) => state.setCategory);
   const setContractURL = useContractStore((state) => state.setContractURL);
 
-  const uploadContract = async ({ file, category }: { file: File, category: string }) => {
+  /* zustand에서 지역변수 값 읽기 */
+  const contractID = useContractStore((state) => state.contractID);
+  const title = useContractStore((state) => state.title);
+  const categories = useContractStore((state) => state.category);
+  const contractUrl = useContractStore((state) => state.ContractURL);
+
+  const uploadContract = async ({
+    file,
+    category,
+  }: {
+    file: File;
+    category: string;
+  }) => {
     const formData = new FormData();
     formData.append('file', file);
     const res = await fetch(
@@ -21,7 +37,7 @@ export default function Contract() {
       {
         method: 'POST',
         body: formData,
-      }
+      },
     );
     if (!res.ok) throw new Error('업로드 실패');
     return res.json();
@@ -30,30 +46,40 @@ export default function Contract() {
   const mutation = useMutation({
     mutationFn: uploadContract,
     onSuccess: (data) => {
-      setContractURL(data.url);
+      setContractID(data.contractId);
+      setTitle(data.title);
+      setCategoryStore(data.category);
+      setContractURL(data.pdfUrl);
       alert('업로드 성공! S3 URL: ' + data.url);
+
+      // 업로드 성공 후 계약서 분석 페이지로 이동 && 콘솔에 전역변수 출력 해보기
+      console.log('Contract ID', useContractStore.getState().contractID);
+      console.log('Title', useContractStore.getState().title);
+      console.log('category', useContractStore.getState().category);
+      console.log('Contract URL', useContractStore.getState().ContractURL);
+
     },
     onError: () => {
       alert('파일 업로드에 실패했습니다.');
-    }
+    },
   });
-  
+
   type Category = 'RealEstate' | 'Labor' | 'Insurance';
 
-  const handleCategoryClick = (cat : Category)  => {
+  const handleCategoryClick = (cat: Category) => {
     setCategory(cat);
     document.getElementById('fileInput')?.click();
   };
 
-const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const file = event.target.files && event.target.files[0];
-  setSelectedFile(file);
-  if (file && category) {
-    mutation.mutate({ file, category });
-  } else if (!category) {
-    alert('먼저 계약서 종류를 선택해 주세요.');
-  }
-};
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setSelectedFile(file);
+    if (file && category) {
+      mutation.mutate({ file, category });
+    } else if (!category) {
+      alert('먼저 계약서 종류를 선택해 주세요.');
+    }
+  };
 
   return (
     <>

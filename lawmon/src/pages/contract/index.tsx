@@ -4,6 +4,8 @@ import './index.css';
 import contractImage from '/src/assets/계약서이미지.svg';
 import { useMutation } from '@tanstack/react-query';
 import { useContractStore } from '../../shared/store/store';
+import Loading from './Loading';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Contract() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -58,6 +60,7 @@ export default function Contract() {
       console.log('category', useContractStore.getState().category);
       console.log('Contract URL', useContractStore.getState().ContractURL);
 
+      navigate('/chatgpt');
     },
     onError: () => {
       alert('파일 업로드에 실패했습니다.');
@@ -71,6 +74,15 @@ export default function Contract() {
     document.getElementById('fileInput')?.click();
   };
 
+  // 임시로 로딩만 확인
+  const handleFakeLoading = () => {
+    setUploading(true);
+    setTimeout(() => {
+      setUploading(false);
+      navigate('/chatgpt');
+    }, 2000); // 2초 동안 로딩
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setSelectedFile(file);
@@ -80,10 +92,46 @@ export default function Contract() {
       alert('먼저 계약서 종류를 선택해 주세요.');
     }
   };
+    // 이 부분 gpt api 연동 후 pending 부분에 넣기
+  if (uploading) {
+    return (
+      <div>
+        <AnimatePresence>
+          <motion.div
+            key="loading"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.5 } }}
+            style={{
+              width: '100vw',
+              height: '100vh',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              zIndex: 1000,
+            }}
+          >
+            <Loading />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  if (mutation.isPending) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <>
-      <button className="expert-start fixed top-6 right-6">
+      <button
+        className="expert-start fixed top-6 right-6"
+        onClick={handleFakeLoading} // 임시로 이 버튼 클릭 시 로딩
+      >
         전문가와 상담하기
       </button>
 

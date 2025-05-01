@@ -4,6 +4,7 @@ import Init from 'pages/Init/index';
 import { Main } from 'pages/main/index';
 import Chat from 'pages/chat/index';
 import ChatRoom from 'pages/chat/ChatRoom';
+import ChatGPT from 'pages/chat/ChatGpt';
 import { NotFound } from 'pages/not-found';
 import Login from 'pages/login/index';
 import Profile from 'pages/profile';
@@ -12,6 +13,7 @@ import Result from 'pages/result';
 import Expert from 'pages/expert';
 import Contract from 'pages/contract';
 import Past from 'pages/past';
+import Loading from 'pages/contract/Loading';
 
 
 export const router = createBrowserRouter([
@@ -33,6 +35,9 @@ export const router = createBrowserRouter([
       {
         path: '/chat/:roomId',
         element: <ChatRoom />,
+      },{
+        path: '/chatgpt',
+        element: <ChatGPT />,
       },
       {
         path: '/login',
@@ -66,6 +71,10 @@ export const router = createBrowserRouter([
         path: '/review',
         element: <Review />,
       },
+      {
+        path: '/loading',
+        element: <Loading />,
+      }
     ],
   },
 ]);

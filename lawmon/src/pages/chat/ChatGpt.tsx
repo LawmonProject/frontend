@@ -4,6 +4,7 @@ import send from '../../assets/로우몬제출이모티콘.svg';
 import GPTimg from '../../assets/Gpt_img.svg';
 import { useContractStore } from 'shared/store/store';
 import { useNavigate } from 'react-router-dom';
+import './ChatGpt.css';
 
 // Chatting 인터페이스 정의
 interface Chatting {
@@ -127,7 +128,12 @@ export default function ChatGpt() {
             id="chatting-input-part"
             className="w-full h-12 bg-white flex items-center justify-between rounded-lg px-3 mb-[10px] "
           >
-            <button onClick={handleSummary}> 요약하기 </button>
+            <button
+              onClick={handleSummary}
+              className="summary-btn mr-3 h-12"
+            >
+              요약하기
+            </button>
             <textarea
               className="w-full h-12 mx-3 focus:outline-none resize-none flex-1 chatting-input"
               style={{ resize: 'none' }}

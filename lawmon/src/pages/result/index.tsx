@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './index.css';
 import Button from 'shared/ui/Button';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useContractStore } from 'shared/store/store';
 
 const contents = {
@@ -19,64 +19,74 @@ const contents = {
 export default function Result() {
   const contractID = useContractStore((state) => state.contractID);
 
-  const { isPending, error, data } = useQuery({
-    queryKey: ['contract', contractID],
-    queryFn: () =>
-      fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/contracts/${contractID}/summary`,
-      ).then((res) => res.json()),
 
-    enabled: !!contractID,
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/v1/gpt/contracts/${contractID}/summary`,
+        { method: 'POST' }
+      );
+      if (!res.ok) throw new Error('분석 실패');
+      return res.json();
+    },
+    // onSuccess, onError 등 필요시 추가
   });
+  useEffect(() => {
+    if (contractID) {
+      mutation.mutate();
+    }
+  }, [contractID]);
 
-    // 분석 내용 렌더링 함수
-    const renderAnalistContent = () => {
-        if (isPending) return '분석 결과를 불러오는 중입니다...';
-        if (error) return '분석 결과를 불러오지 못했습니다.';
-        if (!data) return '분석 결과가 없습니다.';
-    
-        return (
-          <div>
-            <div>
-              <strong>계약 유형:</strong> {data.contractType}
-            </div>
-            <div>
-              <strong>주요 조항:</strong>
-              <ul>
-                {data.mainClauses?.map((clause: string, idx: number) => (
-                  <li key={idx}>{clause}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <strong>특약 사항:</strong>
-              <ul>
-                {data.specialConditions?.map((cond: string, idx: number) => (
-                  <li key={idx}>{cond}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <strong>법적 리스크:</strong>
-              <ul>
-                {data.legalRisks?.map(
-                  (
-                    risk: { issue: string; reason: string; severity: string },
-                    idx: number,
-                  ) => (
-                    <li key={idx}>
-                      <b>{risk.issue}</b> ({risk.severity})<br />
-                      <span style={{ color: '#666', fontSize: '0.95em' }}>
-                        {risk.reason}
-                      </span>
-                    </li>
-                  ),
-                )}
-              </ul>
-            </div>
-          </div>
-        );
-      };
+  // 분석 내용 렌더링 함수
+  const renderAnalistContent = () => {
+    if (mutation.isPending) return '분석 결과를 불러오는 중입니다...';
+    if (mutation.isError) return '분석 결과를 불러오지 못했습니다.';
+    if (!mutation.data) return '분석 결과가 없습니다.';
+
+    const { summary, legalRisks } = mutation.data;
+
+    return (
+      <div>
+        <div>
+          <strong>계약 유형:</strong> {summary.contractType}
+        </div>
+        <div>
+          <strong>주요 조항:</strong>
+          <ul>
+            {summary.mainClauses?.map((clause: string, idx: number) => (
+              <li key={idx}>{clause}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <strong>특약 사항:</strong>
+          <ul>
+            {summary.specialConditions?.map((cond: string, idx: number) => (
+              <li key={idx}>{cond}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <strong>법적 리스크:</strong>
+          <ul>
+            {legalRisks?.map(
+              (
+                risk: { issue: string; reason: string; severity: string },
+                idx: number,
+              ) => (
+                <li key={idx}>
+                  <b>{risk.issue}</b> ({risk.severity})<br />
+                  <span style={{ color: '#666', fontSize: '0.95em' }}>
+                    {risk.reason}
+                  </span>
+                </li>
+              ),
+            )}
+          </ul>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>

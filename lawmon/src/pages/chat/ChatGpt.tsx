@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import ChattingComponent from './ChattingComponent';
 import send from '../../assets/로우몬제출이모티콘.svg';
 import GPTimg from '../../assets/Gpt_img.svg';
+import { useContractStore } from 'shared/store/store';
+import { useNavigate } from 'react-router-dom';
 
 // Chatting 인터페이스 정의
 interface Chatting {
@@ -17,6 +19,8 @@ export default function ChatGpt() {
   const [chattings, setChattings] = useState<Chatting[]>([]);
   const [input, setInput] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -84,10 +88,16 @@ export default function ChatGpt() {
     }
   };
 
+  const handleSummary = () => {
+    navigate('/result')
+  };
+
   return (
     <>
       <div className="flex justify-between items-center title mb-[10px]">
-        <h1 className="Law-title text-3xl font-bold text-blue-900 mb-4">LAWMON</h1>
+        <h1 className="Law-title text-3xl font-bold text-blue-900 mb-4">
+          LAWMON
+        </h1>
       </div>
       <div className="flex Chat-container">
         <div
@@ -117,6 +127,7 @@ export default function ChatGpt() {
             id="chatting-input-part"
             className="w-full h-12 bg-white flex items-center justify-between rounded-lg px-3 mb-[10px] "
           >
+            <button onClick={handleSummary}> 요약하기 </button>
             <textarea
               className="w-full h-12 mx-3 focus:outline-none resize-none flex-1 chatting-input"
               style={{ resize: 'none' }}

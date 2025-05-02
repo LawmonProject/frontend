@@ -19,7 +19,7 @@ export default function Loading() {
           <div className="dot purple"></div>
           <div className="dot purple"></div>
         </div>
-        <h1>계약서 분석 중 입니다</h1>
+        <h1>계약서를 저장 중 입니다</h1>
       </div>
     </div>
   );

@@ -10,10 +10,10 @@ import Loading from './Loading';
 export default function Expert() {
 
   const category = useContractStore((state) => state.category);
-  const setCategory = useContractStore((state) => state.setCategory); // 지우기
-  useEffect(() => { //지우기
-    setCategory('REAL_ESTATE'); // 지우기
-  }, []);
+//   const setCategory = useContractStore((state) => state.setCategory); // 지우기
+//   useEffect(() => { //지우기
+//     setCategory('REAL_ESTATE'); // 지우기
+//   }, []);
 
   const { isPending, error, data } = useQuery({
     queryKey: ['experts', category],
@@ -28,8 +28,8 @@ export default function Expert() {
     },
     enabled: !!category, // category가 있을 때만 쿼리 실행
   });
-  console.log('category : ', category);  //지우기
-  console.log('data :', data);  //지우기
+//   console.log('category : ', category);  //지우기
+//   console.log('data :', data);  //지우기
 
   interface ExpertApiResponse {
     name: string;

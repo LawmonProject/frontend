@@ -67,7 +67,7 @@ export default function Contract() {
     },
   });
 
-  type Category = 'RealEstate' | 'Labor' | 'Insurance';
+  type Category = 'REAL_ESTATE' | 'LABOR' | 'INSURANCE';
 
   const handleCategoryClick = (cat: Category) => {
     setCategory(cat);
@@ -118,7 +118,7 @@ export default function Contract() {
     );
   }
 
-  if (mutation.isPending) {
+  if (mutation.isPending) {// 2초 동안 로딩
     return (
       <div>
         <Loading />
@@ -147,21 +147,21 @@ export default function Contract() {
         <div className="button-container flex flex-row items-center space-y-4">
           <button
             className="contract-button flex flex-col items-center justify-center space-y-2 p-4 bg-blue-500 rounded-lg text-white"
-            onClick={() => handleCategoryClick('RealEstate')}
+            onClick={() => handleCategoryClick('REAL_ESTATE')}
           >
             <img src={contractImage} alt="계약서" className="w-10 h-10" />
             <span>부동산 계약서</span>
           </button>
           <button
             className="contract-button flex flex-col items-center justify-center space-y-2 p-4 bg-blue-500 rounded-lg text-white"
-            onClick={() => handleCategoryClick('Labor')}
+            onClick={() => handleCategoryClick('LABOR')}
           >
             <img src={contractImage} alt="계약서" className="w-10 h-10" />
             <span>근로 계약서</span>
           </button>
           <button
             className="contract-button flex flex-col items-center justify-center space-y-2 p-4 bg-blue-500 rounded-lg text-white"
-            onClick={() => handleCategoryClick('Insurance')}
+            onClick={() => handleCategoryClick('INSURANCE')}
           >
             <img src={contractImage} alt="계약서" className="w-10 h-10" />
             <span>보험 계약서</span>

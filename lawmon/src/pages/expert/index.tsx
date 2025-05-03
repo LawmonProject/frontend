@@ -1,66 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.css';
 import expertImage from '/src/assets/윾건이형.png'; // 전문가 프로필 이미지 예제
 import smallStar from '/src/assets/작은별.svg'; // 보라색 채운 별 이미지 경로
 import talk from '../../assets/상담하기.svg';
+import { useQuery } from '@tanstack/react-query';
+import { useContractStore } from 'shared/store/store';
+import Loading from './Loading';
 
 export default function Expert() {
-  const experts = [
-    {
-      name: '현우진',
-      rating: 5,
-      reviews: 18,
-      description: (
-        <b>'20년 경력의 계약 전문가, 당신의 신뢰를 지키는 파트너입니다.'</b>
-      ),
-      education: '(미) 스탠포드대학교 수학과 학사',
-      company1: '대찬학원',
-      company2: '메가스터디',
-      image: expertImage,
-    },
-    {
-      name: '김민지',
-      rating: 4,
-      reviews: 12,
-      description: (
-        <b>'15년 경력의 회계 전문가, 신뢰할 수 있는 재정 관리 파트너입니다.'</b>
-      ),
-      education: '(미) 하버드대학교 경영학 학사',
-      company1: '삼성전자',
-      company2: '현대자동차',
-      image: expertImage,
-    },
-    {
-      name: '이승현',
-      rating: 5,
-      reviews: 22,
-      description: (
-        <b>
-          '10년 경력의 금융 전문가, 안정적이고 효율적인 투자 솔루션을
-          제공합니다.'
-        </b>
-      ),
-      education: '(미) MIT 경영학 석사',
-      company1: 'KB증권',
-      company2: '한국투자증권',
-      image: expertImage,
-    },
 
-    {
-      name: '현우진',
-      rating: 5,
-      reviews: 18,
-      description: (
-        <b>'20년 경력의 계약 전문가, 당신의 신뢰를 지키는 파트너입니다.'</b>
-      ),
-      education: '(미) 스탠포드대학교 수학과 학사',
-      company1: '대찬학원',
-      company2: '메가스터디',
-      image: expertImage,
-    },
+  const category = useContractStore((state) => state.category);
+  const setCategory = useContractStore((state) => state.setCategory); // 지우기
+  useEffect(() => { //지우기
+    setCategory('REAL_ESTATE'); // 지우기
+  }, []);
 
-    // 추가 전문가 데이터를 원하면 여기에 객체 추가 가능
-  ];
+  const { isPending, error, data } = useQuery({
+    queryKey: ['experts', category],
+    queryFn: async () => {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/v1/experts/category/${category}`,
+      );
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return res.json();
+    },
+    enabled: !!category, // category가 있을 때만 쿼리 실행
+  });
+  console.log('category : ', category);  //지우기
+  console.log('data :', data);  //지우기
+
+  interface ExpertApiResponse {
+    name: string;
+    specialty: string;
+    // 필요한 경우 rating, reviews, education, company1, company2 등 추가
+  }
+
+
+  // data가 배열인지 확인 후 map, 아니면 빈 배열 사용
+  const experts = Array.isArray(data)
+    ? data.map((item: ExpertApiResponse) => ({
+        name: item.name,
+        rating: 5, // 임시값, 실제 rating 필드가 오면 교체
+        reviews: 0, // 임시값, 실제 reviews 필드가 오면 교체
+        description: <b>{item.specialty}</b>, // specialty를 description으로 사용
+        education: '', // 임시값
+        company1: '', // 임시값
+        company2: '', // 임시값
+        image: expertImage,
+      }))
+    : [];
 
   return (
     <div className="expert-container flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-white p-6">
@@ -95,7 +85,7 @@ export default function Expert() {
                       />
                     ))}
                   </span>
-                  후기 {expert.reviews}개
+                    &nbsp; 후기 {expert.reviews}개
                 </p>
               </div>
               <div className="flex justify-end ">

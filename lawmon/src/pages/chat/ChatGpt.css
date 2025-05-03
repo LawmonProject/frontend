@@ -1,0 +1,18 @@
+/* 예: ChatGpt.module.css 또는 global css에 추가 */
+.summary-btn {
+  background: linear-gradient(90deg, #ba8af9 0%, #804ed0 100%);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 90px;
+  padding: 48px 28px;
+  margin-right: 10px;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(162, 89, 255, 0.15);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.summary-btn:hover {
+  background: linear-gradient(90deg, #6d28d9 0%, #a259ff 100%);
+  transform: translateY(-2px) scale(1.04);
+}

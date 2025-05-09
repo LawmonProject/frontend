@@ -1,14 +1,16 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './index.css';
 import Button from 'shared/ui/Button';
 import { useMutation } from '@tanstack/react-query';
 import { useContractStore } from 'shared/store/store';
+import Loading from './Loading';
+import { useNavigate } from 'react-router-dom';
 
 const contents = {
   consult: {
     title: '상담내용',
     content:
-      '상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용상담내용',
+      '임시 상담내용 입니다',
   },
   analist: {
     title: '계약서 분석 내용',
@@ -17,6 +19,9 @@ const contents = {
 };
 
 export default function Result() {
+    const navigate = useNavigate();
+    const [done, setDone] = useState(false);
+
   const contractID = useContractStore((state) => state.contractID);
 
 
@@ -36,7 +41,11 @@ export default function Result() {
       mutation.mutate();
     }
   }, [contractID]);
+    
+  if (mutation.isPending) {
+    return <Loading />;
 
+  }
   // 분석 내용 렌더링 함수
   const renderAnalistContent = () => {
     if (mutation.isPending) return '분석 결과를 불러오는 중입니다...';
@@ -44,6 +53,8 @@ export default function Result() {
     if (!mutation.data) return '분석 결과가 없습니다.';
 
     const { summary, legalRisks } = mutation.data;
+
+    
 
     return (
       <div>
@@ -110,7 +121,7 @@ export default function Result() {
         </section>
       </div>
       <div className="flex gap-[100px] mt-[40px] btn">
-        <Button className="w-[540px] h-[76px] px-[180px] py-[24px] dirbtn">
+        <Button className="w-[540px] h-[76px] px-[180px] py-[24px] dirbtn" onClick={() => {navigate('/expert')}}>
           전문가와 상담하기
         </Button>
         <Button className="w-[540px] h-[76px] px-[180px] py-[24px] dirbtn">

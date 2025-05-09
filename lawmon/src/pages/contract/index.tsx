@@ -19,23 +19,24 @@ export default function Contract() {
   const setCategoryStore = useContractStore((state) => state.setCategory);
   const setContractURL = useContractStore((state) => state.setContractURL);
 
-  /* zustand에서 지역변수 값 읽기 */
-  const contractID = useContractStore((state) => state.contractID);
-  const title = useContractStore((state) => state.title);
-  const categories = useContractStore((state) => state.category);
-  const contractUrl = useContractStore((state) => state.ContractURL);
+  const CATEGORY_MAP = {
+    REAL_ESTATE: 'RealEstate',
+    LABOR:      'Labor',
+    INSURANCE:  'Insurance',
+  } as const;
 
   const uploadContract = async ({
     file,
     category,
   }: {
     file: File;
-    category: string;
+    category: keyof typeof CATEGORY_MAP;
   }) => {
+    const mappedCategory = CATEGORY_MAP[category];
     const formData = new FormData();
     formData.append('file', file);
     const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/v1/contracts/upload?title=${encodeURIComponent(file.name)}&category=${encodeURIComponent(category)}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/contracts/upload?title=${encodeURIComponent(file.name)}&category=${encodeURIComponent(mappedCategory)}`,
       {
         method: 'POST',
         body: formData,
@@ -48,9 +49,11 @@ export default function Contract() {
   const mutation = useMutation({
     mutationFn: uploadContract,
     onSuccess: (data) => {
+        const storeCategory = (Object.keys(CATEGORY_MAP) as Array<keyof typeof CATEGORY_MAP>)
+      .find(k => CATEGORY_MAP[k] === data.category)!;
       setContractID(data.contractId);
       setTitle(data.title);
-      setCategoryStore(data.category);
+      setCategoryStore(storeCategory);
       setContractURL(data.pdfUrl);
       alert('업로드 성공! S3 URL: ' + data.url);
 

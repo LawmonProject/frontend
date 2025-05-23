@@ -124,7 +124,7 @@ export default function Result() {
         <Button className="w-[540px] h-[76px] px-[180px] py-[24px] dirbtn" onClick={() => {navigate('/expert')}}>
           전문가와 상담하기
         </Button>
-        <Button className="w-[540px] h-[76px] px-[180px] py-[24px] dirbtn">
+        <Button className="w-[540px] h-[76px] px-[180px] py-[24px] dirbtn" onClick={() => {navigate('/past')}}>
           과거 판례 찾아보기
         </Button>
       </div>

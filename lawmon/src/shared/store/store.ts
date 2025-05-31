@@ -11,6 +11,8 @@ interface ContractState {
   setCategory: (category: string | null) => void;
   ContractURL: string | null;
   setContractURL: (url: string | null) => void;
+  memberId?: number; // 선택적 속성으로 memberId 추가
+  setMemberId?: (id: number) => void; // memberId를 설정하는 함수
 }
 
 export const useContractStore = create<ContractState>((set) => ({
@@ -24,4 +26,6 @@ export const useContractStore = create<ContractState>((set) => ({
   setSelectedFile: (file) => set({ selectedFile: file }),
   ContractURL: null,
   setContractURL: (url) => set({ ContractURL: url }),
+  memberId: undefined,
+  setMemberId: (id) => set({ memberId: id }),
 }));

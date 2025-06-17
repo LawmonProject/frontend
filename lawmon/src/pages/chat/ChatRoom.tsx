@@ -67,33 +67,49 @@ function Chat() {
         setReconnectCount(0); // 연결 성공 시 재연결 카운트 리셋
         
         // 채팅방 구독
-        stompClient.subscribe(`/sub/chat/room/${roomId}`, (message: any) => {
-          const recv: ChatMessage = JSON.parse(message.body);
+        stompClient.subscribe(`/sub/chat/room/${roomId}`, (message) => {
+          console.log('>>> RECEIVED MESSAGE:', message);
+          console.log('>>> MESSAGE BODY:', message.body);
           
-          // 받은 메시지를 Chatting 형태로 변환
-          const newChatting: Chatting = {
-            id: Date.now(),
-            nickname: recv.sender,
-            profileImage: UserImage,
-            chatting: recv.message,
-            time: new Date(recv.timestamp).toLocaleTimeString('ko-KR', { 
-              hour: '2-digit', 
-              minute: '2-digit' 
-            }),
-            isMe: recv.sender === String(memberId)
-          };
-          
-          // ENTER, LEAVE 메시지는 시스템 메시지로 처리
-          if (recv.type === 'ENTER' || recv.type === 'LEAVE') {
-            if (recv.message) {
-              setChattings(prev => [...prev, {
-                ...newChatting,
-                nickname: '[알림]',
-                isMe: false
-              }]);
+          try {
+            const recv: ChatMessage = JSON.parse(message.body);
+            console.log('>>> PARSED MESSAGE:', recv);
+            
+            // 받은 메시지를 Chatting 형태로 변환
+            const newChatting: Chatting = {
+              id: Date.now(),
+              nickname: recv.sender,
+              profileImage: UserImage,
+              chatting: recv.message,
+              time: new Date(recv.timestamp).toLocaleTimeString('ko-KR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+              }),
+              isMe: recv.sender === String(memberId)
+            };
+            
+            // ENTER, LEAVE 메시지는 시스템 메시지로 처리
+            if (recv.type === 'ENTER' || recv.type === 'LEAVE') {
+              if (recv.message) {
+                setChattings(prev => {
+                  const updated = [...prev, {
+                    ...newChatting,
+                    nickname: '[알림]',
+                    isMe: false
+                  }];
+                  console.log('>>> UPDATED CHATTINGS (SYSTEM):', updated);
+                  return updated;
+                });
+              }
+            } else if (recv.type === 'TALK') {
+              setChattings(prev => {
+                const updated = [...prev, newChatting];
+                console.log('>>> UPDATED CHATTINGS (TALK):', updated);
+                return updated;
+              });
             }
-          } else if (recv.type === 'TALK') {
-            setChattings(prev => [...prev, newChatting]);
+          } catch (error) {
+            console.error('>>> MESSAGE PARSE ERROR:', error);
           }
         });
         
@@ -178,14 +194,30 @@ function Chat() {
       const messageData: ChatMessage = {
         type: 'TALK',
         roomId: roomId,
-        sender: String(memberId),
+        sender: String(memberId), // number를 string으로 변환
         message: input.trim(),
         timestamp: new Date().toISOString()
       };
       
+      console.log('>>> SENDING MESSAGE:', messageData);
+      
       // WebSocket으로 메시지 전송
       ws.send("/pub/chat/message", {}, JSON.stringify(messageData));
       
+      // 임시: 내가 보낸 메시지 즉시 화면에 추가 (백엔드 문제 해결 전까지)
+      const newChatting: Chatting = {
+        id: Date.now(),
+        nickname: String(memberId),
+        profileImage: UserImage,
+        chatting: input.trim(),
+        time: new Date().toLocaleTimeString('ko-KR', { 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        }),
+        isMe: true
+      };
+      
+      setChattings(prev => [...prev, newChatting]);
       setInput('');
     }
   };

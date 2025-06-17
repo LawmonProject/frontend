@@ -50,3 +50,20 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
+.connection-status {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  font-weight: 500;
+}
+
+.connection-status.connected {
+  color: #059669;
+  background-color: #d1fae5;
+}
+
+.connection-status.disconnected {
+  color: #dc2626;
+  background-color: #fee2e2;
+}
